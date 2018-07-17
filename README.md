@@ -2,7 +2,8 @@
 This project is intended to make it easy to create and scale permissions for applications
 
 Keywords
-* actions : descriptive system actions
+* action : descriptive system actions
+* scope : specific scoping for actions
 * roles : represent a collection of actions
 * state : formatted object properties
 * up : the User Permission class

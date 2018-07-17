@@ -15,18 +15,6 @@ const actionProfile = {
 
 }
 
-// const userContext = {
-//     user: 32,
-//     location: 'tokyo',
-//     sub_locations: ['north', 'south', 'river'],
-//     regionscodes: [362, 346, 123],
-//     uprm: {
-//         board_member: ['farm', 'fishing'],
-//         citizen: true,
-//     }
-// }
-
-
 var up;
 beforeEach(() => {
     up = new UserPermissions(actionProfile);
@@ -83,5 +71,33 @@ test('require returns false for action, but bad prop value', () => {
     // user must be a treasurer for the purchases action and have a region code of either 362, 451
     let action = { action: 'purchases', region_code: [362, 451] }
     let userContext = { uprm: {treasurer: true},  region_code: 450 }
+    expect(up.requires(action, userContext)).toEqual(false)
+})
+
+
+test('require returns true for objectProp value', () => {
+    // user must be a treasurer for the purchases action and have a region code of either 362, 451
+    const order = {
+        city: 'tokyo'
+    }
+    const order2 = {
+        city: 'miami'
+    }
+    let userContext = { uprm: {treasurer: true}, city: 'tokyo'}
+    expect(up.requires({ action: 'purchases', city: order.city }, userContext)).toEqual(true)
+    expect(up.requires({ action: 'purchases', city: order2.city }, userContext)).toEqual(false)
+})
+
+test('require returns true for UPRM scoping match', () => {
+    // user must be a treasurer for the purchases action and have a region code of either 362, 451
+    let action = { action: 'purchases', scope: 'fishing' }
+    let userContext = { uprm: {treasurer: ['farming', 'fishing']}}
+    expect(up.requires(action, userContext)).toEqual(true)
+})
+
+test('require returns false for UPRM scoping no match', () => {
+    // user must be a treasurer for the purchases action and have a region code of either 362, 451
+    let action = { action: 'purchases', scope: 'flying' }
+    let userContext = { uprm: {treasurer: ['farming', 'fishing']}}
     expect(up.requires(action, userContext)).toEqual(false)
 })

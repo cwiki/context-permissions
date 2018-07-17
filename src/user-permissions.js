@@ -14,27 +14,37 @@ class UserPermissions {
      * @param {*} context the user text 
      */
     requires(action, context) {
-        return (typeof action === 'string') ? this._shallowResolve(action, context) : this._deepResolve(action, context)
+        return (typeof action === 'string') ? this._shallowResolve({ action: action }, context) : this._deepResolve(action, context)
     }
 
 
     // resolve simple actions by confirm the context has the action as a property
     _shallowResolve(action, context) {
-        let requiredRole = this.profile.get(action)
-        return (context.uprm && context.uprm[requiredRole]) ? true : false
+        const requiredRole = this.profile.get(action.action)
+        if (!(context.uprm && context.uprm[requiredRole])) {
+            return false
+        }
+
+        if (action.scope && action.scope !== true) {
+            let reRoles = [].concat(context.uprm[requiredRole])
+            return reRoles.includes(action.scope)
+        }
+
+        return true
     }
 
     // performs deep resolve for properties and multi action
     _deepResolve(action, context) {
         // role checking
         if (action.action) {
-            if (!this._shallowResolve(action.action, context)) {
+            if (!this._shallowResolve(action, context)) {
                 return false
             }
         }
+        
         // checking each of the actions FAIL if any false
         for (let act in action) {
-            if (act === 'action'){
+            if (['action', 'scope'].includes(act)) {
                 continue
             }
             // if not exists false
@@ -48,6 +58,7 @@ class UserPermissions {
         return true
     }
 
+    // compares values to ensure there is instance of context in action
     _contextFoundInAction(actionValue, contextValue) {
         let av = [].concat(actionValue)
         let cv = [].concat(contextValue)
