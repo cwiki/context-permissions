@@ -21,7 +21,7 @@ class UserPermissions {
     // resolve simple actions by confirm the context has the action as a property
     _shallowResolve(action, context) {
         let requiredRole = this.profile.get(action)
-        return (context.uprm && context.uprm[requiredRole])
+        return (context.uprm && context.uprm[requiredRole]) ? true : false
     }
 
     // performs deep resolve for properties and multi action
@@ -34,6 +34,9 @@ class UserPermissions {
         }
         // checking each of the actions FAIL if any false
         for (let act in action) {
+            if (act === 'action'){
+                continue
+            }
             // if not exists false
             if (!context[act]) {
                 return false
@@ -49,7 +52,7 @@ class UserPermissions {
         let av = [].concat(actionValue)
         let cv = [].concat(contextValue)
         let ans = cv.reduce((accum, v) => {
-            if (av.includes(v)){
+            if (av.includes(v)) {
                 accum = true
             }
             return accum
