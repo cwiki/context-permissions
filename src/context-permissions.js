@@ -1,4 +1,4 @@
-class UserPermissions {
+class ContextPermissions {
 
     constructor(actionProfile) {
         const map = new Map()
@@ -21,12 +21,12 @@ class UserPermissions {
     // resolve simple actions by confirm the context has the action as a property
     _shallowResolve(action, context) {
         const requiredRole = this.profile.get(action.action)
-        if (!(context.uprm && context.uprm[requiredRole])) {
+        if (!(context.cprm && context.cprm[requiredRole])) {
             return false
         }
 
         if (action.scope && action.scope !== true) {
-            let reRoles = [].concat(context.uprm[requiredRole])
+            let reRoles = [].concat(context.cprm[requiredRole])
             return reRoles.includes(action.scope)
         }
 
@@ -72,4 +72,4 @@ class UserPermissions {
     }
 }
 
-module.exports = UserPermissions
+module.exports = ContextPermissions

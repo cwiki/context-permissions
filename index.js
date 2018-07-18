@@ -1,2 +1,2 @@
-const UserPermissions = require('./src/user-permissions')
-module.exports = UserPermissions
+const ContextPermissions = require('./src/context-permissions')
+module.exports = ContextPermissions
