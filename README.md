@@ -1,5 +1,5 @@
 # Context Permissions
-This library is intended to be a simple and efficent tool to use when working with complex application permissions.  
+Action based permissions. Combining request context and flexible requirements.
 
 ### How it works
 1. The request/user provides *CONTEXT* to `cp.require(action, context)`
@@ -11,6 +11,9 @@ This library is intended to be a simple and efficent tool to use when working wi
 ## Getting Started
 To start using context permissions provide a new instance of ContextPermissions with a **actionProfile**.  
 `const cp = new ContextPermissions(actionProfile)`
+
+## Testing
+This project uses JEST `npm test`
 
 glossary
 * action : descriptive system actions
@@ -26,6 +29,8 @@ glossary
 Configuration
 * action profile : OPTIONAL but RECOMMENDED. 
 Stored JSON variable required to enable roles.
+
+## Step By Step Example
 
 Include the library
 ``` 
@@ -117,9 +122,6 @@ if (cp.requires({action: 'mayor', region_codes: [320, 346]}, context)){
     // only mayors with region_codes 320 OR 346
 }
 ```
-
-## Versioning
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 * **Cody Wikman** - <cwiki.tucson@gmail.com>
