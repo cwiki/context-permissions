@@ -82,6 +82,7 @@ const context = {
 
 Create a cp object
 ```js
+const { ContextPermissions } = require('context-permissions')
 const cp = new ContextPermissions(actionProfile)
 ```
 
