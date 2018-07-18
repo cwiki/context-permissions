@@ -1,6 +1,6 @@
 {
   "name": "context-permissions",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Role based permission system for node",
   "main": "index.js",
   "scripts": {
