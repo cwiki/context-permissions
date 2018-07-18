@@ -1,6 +1,6 @@
 {
   "name": "context-permissions",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Role based permission system for node",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "keywords": [
     "permission"
   ],
-  "author": "Cody Wikman <cwiki.tucson@gmail.com>",
+  "author": "Cody Wikman <cwiki.tucson@gmail.com> (http://blog.wikwebdev.com)",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {

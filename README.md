@@ -10,6 +10,8 @@ Action based permissions. Combining request context and flexible requirements.
 
 ## Getting Started
 To start using context permissions provide a new instance of ContextPermissions with a **actionProfile**.  
+`npm i context-permissions`  
+In your project create a new context object   
 `const cp = new ContextPermissions(actionProfile)`
 
 ## Testing
@@ -69,7 +71,7 @@ const context = {
     regions_codes: [362, 346, 123]
     cprm: {
 
-        // these nexted values are assertions about the role
+        // these nexted values are assertions about the role known as scope
         board_member: ['farm', 'fishing'], 
 
         // true provides no assertions
