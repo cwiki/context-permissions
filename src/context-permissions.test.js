@@ -1,4 +1,4 @@
-const ContextPermissions = require('context-permissions')
+const { ContextPermissions } = require('context-permissions')
 
 const actionProfile = {
     treasurer: [
@@ -63,14 +63,14 @@ test('require returns false for action prop value not found', () => {
 test('require returns true for action and prop value matching', () => {
     // user must be a treasurer for the purchases action and have a region code of either 362, 451
     let action = { action: 'purchases', region_code: [362, 600] }
-    let userContext = { cprm: {treasurer: true},  region_code: 600 }
+    let userContext = { cprm: { treasurer: true }, region_code: 600 }
     expect(cp.requires(action, userContext)).toEqual(true)
 })
 
 test('require returns false for action, but bad prop value', () => {
     // user must be a treasurer for the purchases action and have a region code of either 362, 451
     let action = { action: 'purchases', region_code: [362, 451] }
-    let userContext = { cprm: {treasurer: true},  region_code: 450 }
+    let userContext = { cprm: { treasurer: true }, region_code: 450 }
     expect(cp.requires(action, userContext)).toEqual(false)
 })
 
@@ -83,7 +83,7 @@ test('require returns true for objectProp value', () => {
     const order2 = {
         city: 'miami'
     }
-    let userContext = { cprm: {treasurer: true}, city: 'tokyo'}
+    let userContext = { cprm: { treasurer: true }, city: 'tokyo' }
     expect(cp.requires({ action: 'purchases', city: order.city }, userContext)).toEqual(true)
     expect(cp.requires({ action: 'purchases', city: order2.city }, userContext)).toEqual(false)
 })
@@ -91,13 +91,13 @@ test('require returns true for objectProp value', () => {
 test('require returns true for cprm scoping match', () => {
     // user must be a treasurer for the purchases action and have a region code of either 362, 451
     let action = { action: 'purchases', scope: 'fishing' }
-    let userContext = { cprm: {treasurer: ['farming', 'fishing']}}
+    let userContext = { cprm: { treasurer: ['farming', 'fishing'] } }
     expect(cp.requires(action, userContext)).toEqual(true)
 })
 
 test('require returns false for cprm scoping no match', () => {
     // user must be a treasurer for the purchases action and have a region code of either 362, 451
     let action = { action: 'purchases', scope: 'flying' }
-    let userContext = { cprm: {treasurer: ['farming', 'fishing']}}
+    let userContext = { cprm: { treasurer: ['farming', 'fishing'] } }
     expect(cp.requires(action, userContext)).toEqual(false)
 })
