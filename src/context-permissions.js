@@ -14,7 +14,15 @@ class ContextPermissions {
      * @param {*} context the user text 
      */
     requires(action, context) {
-        return (typeof action === 'string') ? this._shallowResolve({ action: action }, context) : this._deepResolve(action, context)
+        let actions = [].concat(action)
+        let ans = actions.find(act => {
+            if (typeof act === 'string') {
+                return this._shallowResolve({ action: act }, context)
+            } else {
+                return this._deepResolve(act, context)
+            }
+        })
+        return Boolean(ans)
     }
 
 
@@ -41,7 +49,7 @@ class ContextPermissions {
                 return false
             }
         }
-        
+
         // checking each of the actions FAIL if any false
         for (let act in action) {
             if (['action', 'scope'].includes(act)) {
