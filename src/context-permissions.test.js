@@ -103,5 +103,6 @@ test('allows multiple actions to be passed ot require, acts as a OR operation', 
     // adding the ability to pass an array of actions as a or statement
     let action = ['purchases', { city: 'tokyo' }]
     let userContext = { cprm: { treasurer: true } }
-    expect(cp.requires(action, userContext)).toEqual(true)
+    expect(cp.requires(...action, userContext)).toEqual(true)
+    expect(cp.requires(...action.reverse(), userContext)).toEqual(true)
 })

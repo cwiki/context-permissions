@@ -12,7 +12,15 @@ Action based permissions. Combining request context and flexible requirements.
 To start using context permissions provide a new instance of ContextPermissions with a **actionProfile**.  
 `npm i context-permissions`  
 In your project create a new context object   
-`const cp = new ContextPermissions(actionProfile)`
+```
+const actionProfile = {
+    role1: ['actionA', 'actionB'],
+    role2: ['actionC', 'actionD'],
+    ...
+} 
+const cp = new ContextPermissions(actionProfile)
+cp.requires(action[, ...action], context)
+```
 
 ## Testing
 This project uses JEST `npm test`
@@ -125,6 +133,8 @@ if (cp.requires({action: 'mayor', region_codes: [320, 346]}, context)){
     // only mayors with region_codes 320 OR 346
 }
 ```
+
+See [Examples](examples/examples.js)  for more
 
 ## Authors
 * **Cody Wikman** - <cwiki.tucson@gmail.com>

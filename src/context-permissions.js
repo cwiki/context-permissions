@@ -13,16 +13,15 @@ class ContextPermissions {
      * @param {*} action the requested action. May be a string or object containg many requirements
      * @param {*} context the user text 
      */
-    requires(action, context) {
-        let actions = [].concat(action)
-        let ans = actions.find(act => {
-            if (typeof act === 'string') {
-                return this._shallowResolve({ action: act }, context)
+    requires(...actions) {
+        const context = actions.pop()
+        return Boolean(actions.find(action => {
+            if (typeof action === 'string') {
+                return this._shallowResolve({ action: action }, context)
             } else {
-                return this._deepResolve(act, context)
+                return this._deepResolve(action, context)
             }
-        })
-        return Boolean(ans)
+        }))
     }
 
 
